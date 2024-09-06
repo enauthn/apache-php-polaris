@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  php-apache-environment:
+    container_name: edge-php-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
