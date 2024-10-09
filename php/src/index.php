@@ -13,7 +13,7 @@
     <!-- <script type="module" src="/polaris-web/client.js"></script> -->
     <!-- Load the client.js file as a module -->
     <script type="module">
-        import { createClient } from '../polaris-web/client.js';
+        import { createClient } from './polaris-web/client.js';
 
         // Use the createClient method
         const client = createClient({ targetOrigin: '*' });

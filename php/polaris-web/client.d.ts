@@ -82,6 +82,29 @@ export interface SignRequestResult {
      */
     headers: Record<string, string>;
 }
+export interface CredentialResult {
+    /**
+     * If the extension responds with a credential, the data will be contained here.
+     */
+    credential: any;
+}
+export interface CreateCredentialArgs {
+    /**
+     * credential attributes as per schema
+     */
+    credData: any;
+    /**
+     * SAID of the schema
+     *
+     */
+    schemaSaid: string;
+}
+export interface CreateCredentialResult {
+    acdc: Record<string, any>;
+    iss: Record<string, any>;
+    anc: Record<string, any>;
+    op: Record<string, any>;
+}
 export interface ConfigureVendorArgs {
     /**
      * The vendor url
@@ -168,6 +191,29 @@ export declare class ExtensionClient {
      * @returns {AuthorizeResult}
      */
     authorizeCred: (payload?: AuthorizeArgs) => Promise<AuthorizeResult>;
+    /**
+      * Sends a /signify/credential/create/data-attestation message to the extension.
+      *
+      * The extension decides whether or not it needs to prompt the user to approve the signing
+      * or automatically sign the request.
+      *
+      * Example of data attestation schema: https://github.com/provenant-dev/public-schema/blob/main/attestation/attestation.schema.json
+      *
+      * @param payload  Information about data attestation credential.
+      * @returns {CreateCredentialResult}
+      */
+    createDataAttestationCredential: (payload: CreateCredentialArgs) => Promise<CreateCredentialResult>;
+    /**
+     * Sends a /signify/credential/get message to the extension.
+     *
+     * The extension decides whether or not it needs to prompt the user to approve the signing
+     * or automatically sign the request.
+     *
+     * @param said  credential SAID.
+     * @param includeCESR  include credential CESR stream in response.
+     * @returns {CredentialResult}
+     */
+    getCredential: (said: string, includeCESR?: boolean) => Promise<CredentialResult>;
     /**
      * Configures the extension with the specified vendor.
      * @param payload The vendor configuration

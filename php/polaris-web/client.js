@@ -144,6 +144,33 @@ export class ExtensionClient {
             return this.sendMessage("/signify/authorize/credential", { payload });
         });
         /**
+          * Sends a /signify/credential/create/data-attestation message to the extension.
+          *
+          * The extension decides whether or not it needs to prompt the user to approve the signing
+          * or automatically sign the request.
+          *
+          * Example of data attestation schema: https://github.com/provenant-dev/public-schema/blob/main/attestation/attestation.schema.json
+          *
+          * @param payload  Information about data attestation credential.
+          * @returns {CreateCredentialResult}
+          */
+        this.createDataAttestationCredential = (payload) => __awaiter(this, void 0, void 0, function* () {
+            return this.sendMessage("/signify/credential/create/data-attestation", { payload });
+        });
+        /**
+         * Sends a /signify/credential/get message to the extension.
+         *
+         * The extension decides whether or not it needs to prompt the user to approve the signing
+         * or automatically sign the request.
+         *
+         * @param said  credential SAID.
+         * @param includeCESR  include credential CESR stream in response.
+         * @returns {CredentialResult}
+         */
+        this.getCredential = (said_1, ...args_2) => __awaiter(this, [said_1, ...args_2], void 0, function* (said, includeCESR = false) {
+            return this.sendMessage("/signify/credential/get", { payload: { id: said, includeCESR } });
+        });
+        /**
          * Configures the extension with the specified vendor.
          * @param payload The vendor configuration
          * @summary Tries to set the vendor url in the extension to load vendor supplied info e.g theme, logo etc.
